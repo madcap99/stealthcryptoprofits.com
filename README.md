@@ -32,7 +32,7 @@ Search `index.html` for `[` to find them all:
 | ~~`[YOUR_HANDLE]`~~ | Done: @MyStealthCrypto |
 | ~~Members / rating~~ | Done: 600+ traders, 4.6+ rating |
 | ~~Prices~~ | Done: $99 quarterly, $349 annual, $949 lifetime |
-| `[CHECKOUT_LINK_QUARTERLY]` / `_ANNUAL` / `_LIFETIME` | Whop (or other) checkout URLs |
+| ~~Checkout links~~ | Done: Quarterly, Annual and Lifetime Whop checkouts |
 
 ## Legal pages: fill in before launch
 
