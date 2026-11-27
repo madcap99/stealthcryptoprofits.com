@@ -2,7 +2,7 @@
 
 Landing page for **Stealth Crypto Profits**, a private crypto trading community: live signals, market intelligence, a trading academy and a members-only community.
 
-Static pages: `index.html` (home), `terms.html` (Terms of Service) and `privacy.html` (Privacy Policy) with no build step and no dependencies apart from Google Fonts (Space Grotesk, Inter, JetBrains Mono).
+Static pages: `index.html` (home), `strategy.html` (strategy examples), `terms.html` (Terms of Service) and `privacy.html` (Privacy Policy) with no build step and no dependencies apart from Google Fonts (Space Grotesk, Inter, JetBrains Mono).
 
 ## Run locally
 

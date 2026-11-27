@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Strategy: Delta-Neutral Trading Examples — Stealth Crypto Profits</title>
+<meta name="description" content="How Stealth Crypto Profits uses delta-neutral and covered-call strategies to stay profitable when crypto trades round-trip. Two illustrative BTC and ETH examples.">
+<link rel="canonical" href="https://stealthcryptoprofits.com/strategy.html">
+<meta property="og:title" content="How we profit when trades round-trip — Stealth Crypto Profits">
+<meta property="og:description" content="Delta-neutral BTC and covered-call ETH examples, step by step.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFFFFF;color:#0B2A5B;font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.6}
+a{color:#1D4ED8}a:hover{color:#1E3A8A}
+header{border-bottom:1px solid #E2E8F0}
+.bar{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:#0B2A5B;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:.02em}
+.logo span{color:#1D4ED8}
+nav{display:flex;flex-wrap:wrap;align-items:center;gap:24px;font-size:15px}
+nav a{color:#3B5278;text-decoration:none}
+nav a.cta{background:#1D4ED8;color:#FFFFFF;font-weight:600;padding:11px 20px;border-radius:8px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:13px;color:#1D4ED8;letter-spacing:.12em}
+h1{font-family:'Space Grotesk',sans-serif;font-size:52px;line-height:1.05;letter-spacing:-.02em;margin:16px 0 20px}
+h2{font-family:'Space Grotesk',sans-serif;font-size:32px;line-height:1.15;margin:0 0 8px}
+h3{font-family:'Space Grotesk',sans-serif;font-size:20px;margin:0 0 6px}
+p{color:#3B5278}
+.lead{font-size:19px;max-width:760px}
+.hero{padding:80px 0 40px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:32px 0 0}
+.compare div{border:1px solid #DCE3EE;border-radius:14px;padding:20px 24px}
+.compare .win{background:#EEF3FF;border-color:#1D4ED8}
+.compare b{display:block;font-family:'Space Grotesk',sans-serif;font-size:28px;color:#0B2A5B}
+.compare span{font-size:14px;color:#5A6E8F}
+.example{border:1px solid #DCE3EE;border-radius:18px;padding:36px;margin:48px 0;background:#FFFFFF}
+.ex-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
+.badge{font-family:'JetBrains Mono',monospace;font-size:12px;background:#F3F6FB;color:#3B5278;border:1px solid #DCE3EE;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.steps{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:start;background:#F3F6FB;border-radius:12px;padding:16px 18px}
+.letter{width:36px;height:36px;border-radius:50%;background:#0B2A5B;color:#FFFFFF;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center}
+.price{font-family:'JetBrains Mono',monospace;font-size:13px;color:#5A6E8F;margin-bottom:2px}
+.step p{margin:0;color:#0B2A5B}
+.step small{display:block;color:#5A6E8F;margin-top:4px;font-size:14px}
+.pnl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;white-space:nowrap;text-align:right}
+.pnl.pos{color:#1D4ED8}
+.pnl.flat{color:#5A6E8F}
+.result{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center;justify-content:space-between;background:#0B2A5B;color:#FFFFFF;border-radius:12px;padding:20px 24px}
+.result p{color:#C7D2E3;margin:0}
+.result b{font-family:'Space Grotesk',sans-serif;font-size:26px;color:#FFFFFF}
+.chart{margin:40px 0 0;border:1px solid #DCE3EE;border-radius:18px;padding:24px 20px 16px;background:#FFFFFF}
+.chart figcaption{font-size:14px;color:#5A6E8F;margin-top:8px;text-align:center}
+.notes{background:#F3F6FB;border-radius:18px;padding:36px;margin:48px 0}
+.notes ol{margin:16px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.notes li{color:#3B5278}
+.notes li strong{color:#0B2A5B}
+.disclaimer{font-size:14px;color:#5A6E8F;border-top:1px solid #E2E8F0;padding-top:24px;margin-top:48px}
+.cta-box{text-align:center;padding:56px 24px;margin:48px 0 0;border:1px solid #BFD0F5;background:#EEF3FF;border-radius:20px}
+.cta-box a.btn{display:inline-block;margin-top:16px;background:#1D4ED8;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:17px;padding:16px 32px;border-radius:10px}
+footer{border-top:1px solid #E2E8F0;margin-top:72px}
+.foot{max-width:1200px;margin:0 auto;padding:32px 24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px;color:#5A6E8F}
+.foot a{color:#3B5278;margin-left:20px}
+@media (max-width:640px){
+ h1{font-size:36px}h2{font-size:26px}
+ .example,.notes{padding:24px 18px}
+ .step{grid-template-columns:36px minmax(0,1fr)}
+ .letter{width:30px;height:30px;font-size:14px}
+ .pnl{grid-column:2;text-align:left}
+}
+</style>
+</head>
+<body>
+<header><div class="bar">
+<a class="logo" href="/"><svg width="30" height="30" viewBox="0 0 34 34" aria-hidden="true"><path d="M17 3 L31 17 L17 31 L3 17 Z" fill="none" stroke="#1D4ED8" stroke-width="2.2"/><path d="M10 17 L17 10 L24 17" fill="none" stroke="#1D4ED8" stroke-width="2.2"/><circle cx="17" cy="21" r="2.4" fill="#1D4ED8"/></svg>STEALTH <span>CRYPTO</span> PROFITS</a>
+<nav aria-label="Main">
+<a href="/#features">What you get</a>
+<a href="strategy.html">Strategy</a>
+<a href="/#track">Track record</a>
+<a href="/#pricing">Membership</a>
+<a class="cta" href="/#pricing">Join now</a>
+</nav>
+</div></header>
+
+<main class="wrap">
+
+<section class="hero">
+<div class="kicker">OUR STRATEGY</div>
+<h1>How we stay profitable when a trade round-trips.</h1>
+<p class="lead">Most traders buy, watch the price rise, then watch it fall right back to where they started — and walk away with nothing. We use delta-neutral hedges and covered options to bank gains along the way, so a round trip still ends in profit.</p>
+<div class="compare">
+<div><span>Buy and hold, price round-trips</span><b>$0</b></div>
+<div class="win"><span>Example 1 · BTC delta-neutral</span><b>+$3,000 (5%)</b></div>
+<div class="win"><span>Example 2 · ETH covered calls</span><b>≈ +$550 (2.75%)</b></div>
+</div>
+
+<figure class="chart" role="img" aria-label="Chart of Example 1. BTC goes from $60,000 down to $57,000, up to $63,000 and back to $60,000. Buy-and-hold profit ends at $0, while the hedged position locks in $3,000 and keeps it.">
+<svg viewBox="0 0 860 400" width="100%" aria-hidden="true">
+<text x="20" y="26" font-family="JetBrains Mono, monospace" font-size="12" fill="#5A6E8F" letter-spacing="1.5">BTC PRICE</text>
+<line x1="60" y1="40" x2="820" y2="40" stroke="#E2E8F0"/><line x1="60" y1="115" x2="820" y2="115" stroke="#C7D2E3" stroke-dasharray="4 4"/><line x1="60" y1="190" x2="820" y2="190" stroke="#E2E8F0"/>
+<text x="54" y="44" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#5A6E8F">$63k</text>
+<text x="54" y="119" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#5A6E8F">$60k</text>
+<text x="54" y="194" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#5A6E8F">$57k</text>
+<polyline points="80,115 190,115 300,190 410,190 540,40 650,40 780,115" fill="none" stroke="#0B2A5B" stroke-width="3" stroke-linejoin="round"/>
+<g fill="#FFFFFF" stroke="#0B2A5B" stroke-width="2.5"><circle cx="80" cy="115" r="5"/><circle cx="190" cy="115" r="5"/><circle cx="300" cy="190" r="5"/><circle cx="410" cy="190" r="5"/><circle cx="540" cy="40" r="5"/><circle cx="650" cy="40" r="5"/><circle cx="780" cy="115" r="5"/></g>
+<text x="190" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#3B5278">Hedge on</text>
+<text x="355" y="208" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#3B5278">Cut short 50%</text>
+<text x="650" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#3B5278">Short back to 100%</text>
+<text x="20" y="226" font-family="JetBrains Mono, monospace" font-size="12" fill="#5A6E8F" letter-spacing="1.5">PROFIT &amp; LOSS</text>
+<line x1="60" y1="240" x2="820" y2="240" stroke="#E2E8F0"/><line x1="60" y1="285" x2="820" y2="285" stroke="#C7D2E3"/><line x1="60" y1="330" x2="820" y2="330" stroke="#E2E8F0"/>
+<text x="54" y="244" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#5A6E8F">+$3k</text>
+<text x="54" y="289" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#5A6E8F">$0</text>
+<text x="54" y="334" text-anchor="end" font-family="Inter, sans-serif" font-size="12" fill="#5A6E8F">−$3k</text>
+<polyline points="80,285 190,285 300,330 410,330 540,240 650,240 780,285" fill="none" stroke="#9AA9C2" stroke-width="2.5" stroke-dasharray="7 6" stroke-linejoin="round"/>
+<polyline points="80,285 190,285 300,285 410,285 540,240 650,240 780,240" fill="none" stroke="#1D4ED8" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="780" cy="240" r="7" fill="#1D4ED8"/><circle cx="780" cy="285" r="6" fill="#FFFFFF" stroke="#9AA9C2" stroke-width="2.5"/>
+<text x="800" y="236" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700" fill="#1D4ED8">+$3k</text>
+<text x="800" y="300" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700" fill="#5A6E8F">$0</text>
+<g font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="#0B2A5B" text-anchor="middle"><text x="80" y="362">a</text><text x="190" y="362">b</text><text x="300" y="362">c</text><text x="410" y="362">d</text><text x="540" y="362">e</text><text x="650" y="362">f</text><text x="780" y="362">g</text></g>
+<g font-family="Inter, sans-serif" font-size="13"><line x1="80" y1="388" x2="108" y2="388" stroke="#1D4ED8" stroke-width="4"/><text x="116" y="392" fill="#0B2A5B">Stealth hedged position</text><line x1="300" y1="388" x2="328" y2="388" stroke="#9AA9C2" stroke-width="2.5" stroke-dasharray="7 6"/><text x="336" y="392" fill="#0B2A5B">Buy and hold</text></g>
+</svg>
+<figcaption>Example 1 at a glance: BTC round-trips from $60k back to $60k. Buy-and-hold ends at $0; the hedged position locks in +$3,000. Illustrative.</figcaption>
+</figure>
+</section>
+
+<!-- EXAMPLE 1 -->
+<section class="example" id="btc">
+<div class="ex-head">
+<div><div class="kicker">EXAMPLE 1 · BTC</div><h2>Spot long + futures short: delta-neutral switching</h2></div>
+<span class="badge">ILLUSTRATIVE EXAMPLE</span>
+</div>
+<p>We hold BTC on spot and hedge it with a futures short, then adjust the size of the hedge as the 4-hour RSI moves between oversold and overbought.</p>
+<ol class="steps">
+<li class="step"><span class="letter">a</span><div><div class="price">BTC $60,000 · neutral 4H RSI</div><p>Starting point.</p></div><div class="pnl flat">$0</div></li>
+<li class="step"><span class="letter">b</span><div><div class="price">BTC $60,000</div><p>Buy 1 BTC on spot and short 1 BTC on futures.</p><small>The position is delta-neutral: price moves no longer change P&amp;L, and we keep our good spot entry price.</small></div><div class="pnl flat">$0</div></li>
+<li class="step"><span class="letter">c</span><div><div class="price">BTC $57,000 · low 4H RSI</div><p>Price drops. The spot loss is fully offset by the short.</p></div><div class="pnl flat">$0</div></li>
+<li class="step"><span class="letter">d</span><div><div class="price">BTC $57,000</div><p>Close 50% of the short, banking $1,500 of profit on that half.</p><small>We are now positioned to benefit from a bounce.</small></div><div class="pnl flat">$0</div></li>
+<li class="step"><span class="letter">e</span><div><div class="price">BTC $63,000 · higher 4H RSI</div><p>Price rebounds. We mark this as an inflection point to bring the short back to 100%, but leave room for the move to run.</p></div><div class="pnl pos">+$3,000 (5%)<br><small>or higher</small></div></li>
+<li class="step"><span class="letter">f</span><div><div class="price">BTC back to $63,000 and/or 4H RSI in our sell zone</div><p>Re-add the short to return to delta-neutral.</p><small>From here the $3,000 gain is locked in, whichever way price moves.</small></div><div class="pnl pos">+$3,000 (5%)<br><small>or higher</small></div></li>
+<li class="step"><span class="letter">g</span><div><div class="price">BTC $60,000</div><p>BTC round-trips back to the starting price.</p></div><div class="pnl pos">+$3,000 (5%)</div></li>
+</ol>
+<div class="result"><p>Price ends exactly where it started.<br>Buy-and-hold: $0.</p><b>Hedged result: +$3,000 (5%)</b></div>
+</section>
+
+<!-- EXAMPLE 2 -->
+<section class="example" id="eth">
+<div class="ex-head">
+<div><div class="kicker">EXAMPLE 2 · ETH</div><h2>Spot long + covered calls: an income trade</h2></div>
+<span class="badge">ILLUSTRATIVE EXAMPLE</span>
+</div>
+<p>We hold ETH on spot and sell short-dated covered calls against it. The option premium is collected up front, and the calls offset roughly half of the position's price exposure. This example assumes a premium of about $60 per ETH (3%) for a 5–7 day at-the-money call.</p>
+<ol class="steps">
+<li class="step"><span class="letter">a</span><div><div class="price">ETH $2,000 · neutral 4H RSI</div><p>Starting point.</p></div><div class="pnl flat">$0</div></li>
+<li class="step"><span class="letter">b</span><div><div class="price">ETH $2,000</div><p>Buy 10 ETH on spot ($20,000) and sell 10 covered calls at a $2,000 strike, expiring in 5–7 days.</p><small>About $600 of premium is collected up front.</small></div><div class="pnl flat">$0</div></li>
+<li class="step"><span class="letter">c</span><div><div class="price">ETH $2,200</div><p>Sell 5 ETH on spot (+$1,000) and buy back half the calls (about −$750).</p><small>The profit comes from option premium that has decayed over time.</small></div><div class="pnl pos">≈ +$500 (2.5%)</div></li>
+<li class="step"><span class="letter">d</span><div><div class="price">ETH $2,000 at expiry, 5 days later</div><p>The remaining 5 calls expire worthless and we keep all of their premium (about $300).</p></div><div class="pnl pos">≈ +$550 (2.75%)</div></li>
+<li class="step"><span class="letter">e</span><div><div class="price">ETH $2,000</div><p>ETH round-trips back to the starting price.</p></div><div class="pnl pos">≈ +$550 (2.75%)</div></li>
+</ol>
+<div class="result"><p>Price ends exactly where it started.<br>Buy-and-hold: $0.</p><b>Covered-call result: ≈ +$550 (2.75%) in one cycle</b></div>
+</section>
+
+<!-- NOTES -->
+<section class="notes">
+<div class="kicker">NOTES ON OPTION PREMIUM</div>
+<h2>How we use options</h2>
+<ol>
+<li><strong>We are selective.</strong> When selling covered calls and puts, premiums and liquidity can vary widely, so we only use this strategy when conditions are right.</li>
+<li><strong>Iron condors.</strong> Hybrid "iron condor" trades also work as an effective delta-neutral trade.</li>
+<li><strong>Doubling the premium.</strong> We occasionally buy spot and sell covered calls while at the same time selling spot and selling covered puts, effectively doubling the option premium we can collect.</li>
+<li><strong>Always covered.</strong> We never sell uncovered options.</li>
+</ol>
+</section>
+
+<section class="cta-box">
+<h2>Get these setups as they happen.</h2>
+<p>Members receive every entry, hedge adjustment and exit live on Telegram, with clear risk levels.</p>
+<a class="btn" href="/#pricing">Join Stealth Premium</a>
+</section>
+
+<p class="disclaimer">These are illustrative examples using simplified, round-number prices to show how the strategies work. They are not records of specific trades. Taxes, trading fees, futures collateral costs and slippage are excluded; option premiums vary with volatility and liquidity. Hedging reduces but does not remove risk, and real results can be lower or negative. Educational content only — not financial advice. Crypto assets are highly volatile and you can lose money. Past performance does not guarantee future results.</p>
+
+</main>
+
+<footer><div class="foot">
+<div>© 2026 Stealth Crypto Profits. Not financial advice.</div>
+<div><a href="/">Home</a><a href="strategy.html">Strategy</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="mailto:hello@stealthcryptoprofits.com">Support</a></div>
+</div></footer>
+</body>
+</html>
